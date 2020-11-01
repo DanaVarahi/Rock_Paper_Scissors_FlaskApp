@@ -6,7 +6,7 @@ from app.models.player import Player
 
 @app.route('/')
 def index():
-  return render_template('index.html', title='Home')
+  return render_template('index.html')
 
 @app.route('/<choice1>/<choice2>')
 def players(choice1=None,choice2=None):
@@ -19,13 +19,21 @@ def players(choice1=None,choice2=None):
       message_title = "It's a draw."
       message_body = f"{game.player1.name} and {game.player2.name} both chose {game.player1.choice}." 
       
-      return render_template('result.html', title='Result', heading=message_title,description=message_body)
+      return render_template('result.html', heading=message_title,description=message_body)
       
     else:
         message_title = f"{winner.name} is the winner!"
         message_body = f"{winner.name} has won with {winner.choice}."
-        return render_template('result.html', title='Result', heading=message_title, description=message_body)
+        return render_template('result.html',heading=message_title, description=message_body)
 
-@app.route('/play')
-def single_player():
+@app.route('/play', methods=['GET'] )
+def single_player_get():
   return render_template('play.html')
+
+@app.route('/play', methods=['POST'] )
+def single_player_post():
+  players_name = request.form['name']
+  players_choice = request.form['choice']
+  player = Player(players_name, players_choice)
+ 
+  return render_template('play.html', current_player=player)

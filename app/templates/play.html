@@ -2,6 +2,12 @@
 
 {% block content%}
     <h2>Single Player</h2>
-        <h3>{{heading}}</h3>
-        <p>{{description}}</p>
+    <form action="/play" method="post"> 
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <label for="choice">Your choice</label>
+        <input type="text" name="choice" id="choice">
+        <input type="submit" value="Play">
+    </form>
+    <h3>{{current_player.name}} chose {{current_player.choice}}</h3>
 {% endblock %}
