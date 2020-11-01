@@ -1,3 +1,4 @@
+from app.models.message import get_message
 from flask import render_template, request
 from app import app
 from app.models.game import Game
@@ -15,16 +16,9 @@ def players(choice1=None,choice2=None):
    
     game = Game(player1, player2)   
     winner = game.return_winner()
-    if winner is None:
-      message_title = "It's a draw."
-      message_body = f"{game.player1.name} and {game.player2.name} both chose {game.player1.choice}." 
-      
-      return render_template('result.html', heading=message_title,description=message_body)
-      
-    else:
-        message_title = f"{winner.name} is the winner!"
-        message_body = f"{winner.name} has won with {winner.choice}."
-        return render_template('result.html',heading=message_title, description=message_body)
+    message = get_message(winner, game)
+
+    return render_template('result.html',heading=message['title'], description=message['body'])
 
 @app.route('/play', methods = ['GET', 'POST'])
 
@@ -42,13 +36,7 @@ def single_player():
     game = Game(player1, player2)
     game.set_computer_player()   
     winner = game.return_winner()
+    message = get_message(winner, game)
 
-    if winner is None:
-      message_title = "It's a draw."
-      message_body = f"{game.player1.name} and {game.player2.name} both chose {game.player2.choice}." 
-      return render_template('result.html', heading=message_title,description=message_body)
-      
-    else:
-      message_title = f"{winner.name} is the winner!"
-      message_body = f"{winner.name} has won with {winner.choice}."
-      return render_template('result.html',heading=message_title, description=message_body)
+    return render_template('result.html',heading=message['title'], description=message['body'])
+
