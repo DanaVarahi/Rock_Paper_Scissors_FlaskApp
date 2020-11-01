@@ -6,18 +6,22 @@ from app.models.player import Player
 
 @app.route('/')
 def index():
-   return "Let's play Rock Paper Scissors! Type both players choices in the url forwarded by a slash (eg. /rock) and press enter."
+  return render_template('index.html', title='Home')
 
 @app.route('/<choice1>/<choice2>')
 def players(choice1=None,choice2=None):
-    # return 'First player chose' + choice1 + ',' + 'Scond player chose' + choice2
-   
     player1 =Player('Player1',choice1)
     player2 =Player('Player2',choice2)
    
     game = Game(player1, player2)   
     winner = game.return_winner()
     if winner is None:
-        return "It's a draw."
+      message_title = "It's a draw."
+      message_body = f"{game.player1.name} and {game.player2.name} both chose {game.player1.choice}." 
+      
+      return render_template('result.html', title='Result', heading=message_title,description=message_body)
+      
     else:
-        return f"{winner.name} has won with {winner.choice}."
+        message_title = f"{winner.name} is the winner!"
+        message_body = f"{winner.name} has won with {winner.choice}."
+        return render_template('result.html', title='Result', heading=message_title, description=message_body)
