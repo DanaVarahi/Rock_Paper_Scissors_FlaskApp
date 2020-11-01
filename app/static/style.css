@@ -16,13 +16,15 @@ header > h1 {
 
 body > nav >ul {
     padding-inline-start: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 body > nav > ul > li {
      list-style-type: none;
      font-size: large;
      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
 }
 
 body > nav > ul > li > a {
@@ -36,4 +38,13 @@ body > h2 {
 p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
+}
+
+form > label {
+margin-left: 10px;
+}
+
+form > input {
+margin-right:10px;
+margin-left: 5px;
 }
