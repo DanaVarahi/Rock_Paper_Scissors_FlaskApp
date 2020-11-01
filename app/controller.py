@@ -25,3 +25,7 @@ def players(choice1=None,choice2=None):
         message_title = f"{winner.name} is the winner!"
         message_body = f"{winner.name} has won with {winner.choice}."
         return render_template('result.html', title='Result', heading=message_title, description=message_body)
+
+@app.route('/play')
+def single_player():
+  return render_template('play.html')
