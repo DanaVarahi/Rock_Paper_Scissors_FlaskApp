@@ -1,3 +1,6 @@
+import random
+from app.models.player import Player
+
 class Game():
     def __init__(self, player1, player2):
         self.player1 = player1
@@ -38,3 +41,9 @@ class Game():
 
         else:
             return None
+
+
+    def set_computer_player(self):
+        options = ['rock', 'paper', 'scissors']
+        self.player2 =Player('Computer',random.choice(options))
+        return self.player2
