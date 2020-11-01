@@ -5,8 +5,12 @@
     <form action="/play" method="post"> 
         <label for="name">Name</label>
         <input type="text" name="name" id="name">
-        <label for="choice">Your choice</label>
-        <input type="text" name="choice" id="choice">
+        <label for="choice">Choose</label>
+        <select name="choice" id="choice">
+            <option value="rock">Rock</option>
+            <option value="paper">Paper</option>
+            <option value="scissors">Scissors</option>
+        </select>
         <input type="submit" value="Play">
     </form>
     <h3>{{current_player.name}} chose {{current_player.choice}}</h3>
